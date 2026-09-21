@@ -2,8 +2,8 @@ import random
 import streamlit as st
 
 st.set_page_config(
-    page_title="ML Quiz",
-    page_icon="🤖",
+    page_title="ML Shooter Quiz",
+    page_icon="🎯",
     layout="centered"
 )
 
@@ -12,23 +12,23 @@ QUESTIONS = [
         "question": "¿Qué significa Machine Learning?",
         "options": [
             "Una técnica para diseñar páginas web",
-            "Una rama de la IA que permite aprender patrones a partir de datos",
+            "Una rama de la IA que aprende patrones a partir de datos",
             "Un lenguaje de programación",
             "Un sistema operativo"
         ],
-        "answer": "Una rama de la IA que permite aprender patrones a partir de datos",
-        "explanation": "Machine Learning permite que los sistemas aprendan patrones usando datos, sin programar cada regla manualmente."
+        "answer": "Una rama de la IA que aprende patrones a partir de datos",
+        "explanation": "Machine Learning permite aprender patrones a partir de datos."
     },
     {
         "question": "¿Cuál es un tipo principal de Machine Learning?",
         "options": [
             "Aprendizaje supervisado",
-            "Aprendizaje visual únicamente",
             "Aprendizaje manual",
-            "Aprendizaje estático"
+            "Aprendizaje estático",
+            "Aprendizaje visual únicamente"
         ],
         "answer": "Aprendizaje supervisado",
-        "explanation": "Los tipos más conocidos son supervisado, no supervisado y por refuerzo."
+        "explanation": "Los tipos principales incluyen supervisado, no supervisado y por refuerzo."
     },
     {
         "question": "¿Qué caracteriza al aprendizaje supervisado?",
@@ -36,10 +36,10 @@ QUESTIONS = [
             "Trabaja con datos etiquetados",
             "Nunca necesita datos",
             "Solo utiliza imágenes",
-            "No permite hacer predicciones"
+            "No permite predicciones"
         ],
         "answer": "Trabaja con datos etiquetados",
-        "explanation": "En el aprendizaje supervisado, el modelo aprende usando ejemplos que incluyen una respuesta o etiqueta conocida."
+        "explanation": "El modelo aprende con ejemplos que contienen una respuesta conocida."
     },
     {
         "question": "¿Cuál es un ejemplo de clasificación?",
@@ -50,7 +50,7 @@ QUESTIONS = [
             "Reducir la cantidad de columnas"
         ],
         "answer": "Determinar si un correo es spam o no spam",
-        "explanation": "La clasificación predice categorías o clases, como spam/no spam."
+        "explanation": "La clasificación predice categorías o clases."
     },
     {
         "question": "¿Cuál es un ejemplo de regresión?",
@@ -61,21 +61,21 @@ QUESTIONS = [
             "Detectar comunidades"
         ],
         "answer": "Predecir el precio de una vivienda",
-        "explanation": "La regresión se utiliza para predecir valores numéricos continuos."
+        "explanation": "La regresión predice valores numéricos."
     },
     {
         "question": "¿Qué busca el aprendizaje no supervisado?",
         "options": [
             "Aprender exclusivamente con etiquetas",
-            "Encontrar patrones o estructuras en datos sin etiquetas",
+            "Encontrar patrones en datos sin etiquetas",
             "Eliminar todos los datos",
             "Reemplazar la base de datos"
         ],
-        "answer": "Encontrar patrones o estructuras en datos sin etiquetas",
-        "explanation": "El aprendizaje no supervisado identifica estructuras, grupos o patrones sin una variable objetivo etiquetada."
+        "answer": "Encontrar patrones en datos sin etiquetas",
+        "explanation": "Busca estructuras o grupos sin una respuesta etiquetada."
     },
     {
-        "question": "¿Cuál de estos algoritmos se usa comúnmente para clustering?",
+        "question": "¿Cuál de estos algoritmos se usa para clustering?",
         "options": [
             "K-Means",
             "Linear Regression",
@@ -83,131 +83,126 @@ QUESTIONS = [
             "Naive Bayes"
         ],
         "answer": "K-Means",
-        "explanation": "K-Means es un algoritmo de agrupamiento que divide los datos en grupos según su similitud."
+        "explanation": "K-Means agrupa datos según su similitud."
     },
     {
         "question": "¿Qué es el overfitting?",
         "options": [
             "Cuando el modelo no aprende nada",
-            "Cuando el modelo memoriza demasiado los datos de entrenamiento y generaliza mal",
-            "Cuando faltan columnas en un dataset",
-            "Cuando el modelo siempre obtiene 50% de precisión"
+            "Cuando memoriza demasiado el entrenamiento y generaliza mal",
+            "Cuando faltan columnas",
+            "Cuando siempre obtiene 50% de precisión"
         ],
-        "answer": "Cuando el modelo memoriza demasiado los datos de entrenamiento y generaliza mal",
-        "explanation": "El overfitting ocurre cuando el modelo se adapta demasiado al conjunto de entrenamiento y funciona peor con datos nuevos."
+        "answer": "Cuando memoriza demasiado el entrenamiento y generaliza mal",
+        "explanation": "El overfitting aparece cuando el modelo se adapta demasiado a los datos de entrenamiento."
     },
     {
         "question": "¿Para qué se divide un dataset en entrenamiento y prueba?",
         "options": [
-            "Para evaluar el rendimiento con datos no usados durante el entrenamiento",
+            "Para evaluar el modelo con datos no usados en el entrenamiento",
             "Para duplicar los datos",
             "Para eliminar la variable objetivo",
             "Para evitar usar algoritmos"
         ],
-        "answer": "Para evaluar el rendimiento con datos no usados durante el entrenamiento",
-        "explanation": "El conjunto de prueba ayuda a medir qué tan bien generaliza el modelo a datos no vistos."
+        "answer": "Para evaluar el modelo con datos no usados en el entrenamiento",
+        "explanation": "El conjunto de prueba permite evaluar la generalización."
     },
     {
-        "question": "¿Qué es una feature o característica?",
+        "question": "¿Qué es una feature?",
         "options": [
-            "La predicción final del modelo",
+            "La predicción final",
             "Una variable de entrada utilizada por el modelo",
             "El nombre del archivo Python",
             "Un error de programación"
         ],
         "answer": "Una variable de entrada utilizada por el modelo",
-        "explanation": "Una feature es una variable de entrada, por ejemplo edad, precio o cantidad de compras."
+        "explanation": "Una feature es una variable de entrada, como edad, precio o cantidad."
     }
 ]
 
 
-def create_quiz():
-    selected_questions = random.sample(QUESTIONS, 5)
-    quiz = []
-
-    for question in selected_questions:
-        shuffled_options = question["options"].copy()
-        random.shuffle(shuffled_options)
-
-        quiz.append({
-            **question,
-            "options": shuffled_options
-        })
-
-    return quiz
+def create_question():
+    question = random.choice(QUESTIONS)
+    options = question["options"].copy()
+    random.shuffle(options)
+    return {**question, "options": options}
 
 
-if "quiz" not in st.session_state:
-    st.session_state.quiz = create_quiz()
-
-if "submitted" not in st.session_state:
-    st.session_state.submitted = False
-
-if "score" not in st.session_state:
+def reset_game():
+    st.session_state.question = create_question()
     st.session_state.score = 0
+    st.session_state.shots = 0
+    st.session_state.finished = False
+    st.session_state.feedback = None
 
 
-st.title("🤖 Machine Learning Quiz")
-st.write("Pon a prueba tus conocimientos básicos sobre Machine Learning.")
-st.info("Cada intento contiene 5 preguntas seleccionadas aleatoriamente de un banco de 10.")
+if "question" not in st.session_state:
+    reset_game()
 
-with st.form("ml_quiz_form"):
-    answers = {}
+st.title("🎯 ML Shooter Quiz")
+st.write("Dispara seleccionando la alternativa correcta. Cada respuesta es un disparo.")
 
-    for index, question in enumerate(st.session_state.quiz, start=1):
-        st.subheader(f"{index}. {question['question']}")
+st.progress(st.session_state.score / 5, text=f"Progreso: {st.session_state.score}/5 aciertos")
+st.metric("🎯 Puntuación", f"{st.session_state.score}/5")
+st.caption(f"Disparos realizados: {st.session_state.shots}")
 
-        answers[index - 1] = st.radio(
-            "Selecciona una alternativa:",
-            ["Selecciona una opción"] + question["options"],
-            key=f"question_{index}"
-        )
+question = st.session_state.question
 
-    submitted = st.form_submit_button("Comprobar respuestas", type="primary")
+st.subheader(f"🎯 Objetivo: {question['question']}")
+st.write("Elige el objetivo correcto:")
 
-if submitted:
-    score = 0
+with st.form("shooter_form"):
+    selected = st.radio(
+        "Alternativas",
+        question["options"],
+        index=None,
+        key=f"answer_{st.session_state.shots}"
+    )
 
-    for index, question in enumerate(st.session_state.quiz):
-        if answers[index] == question["answer"]:
-            score += 1
+    fire = st.form_submit_button("🔫 DISPARAR", type="primary")
 
-    st.session_state.score = score
-    st.session_state.submitted = True
-
-if st.session_state.submitted:
-    score = st.session_state.score
-
-    st.divider()
-    st.header(f"Resultado: {score}/5")
-
-    if score == 5:
-        st.success("¡Excelente! Respondiste todas correctamente.")
-        st.balloons()
-    elif score >= 3:
-        st.success("¡Buen trabajo! Sigue practicando para conseguir 5/5.")
+if fire:
+    if selected is None:
+        st.warning("Selecciona un objetivo antes de disparar.")
     else:
-        st.warning("Puedes mejorar. Revisa las explicaciones y vuelve a intentarlo.")
+        st.session_state.shots += 1
 
-    for index, question in enumerate(st.session_state.quiz, start=1):
-        user_answer = st.session_state.get(f"question_{index}", "Sin respuesta")
-
-        if user_answer == question["answer"]:
-            st.markdown(f"✅ **Pregunta {index}: correcta**")
+        if selected == question["answer"]:
+            st.session_state.score += 1
+            st.session_state.feedback = ("correct", question["explanation"])
         else:
-            st.markdown(
-                f"❌ **Pregunta {index}: incorrecta**  \n"
-                f"Respuesta correcta: **{question['answer']}**"
+            st.session_state.feedback = (
+                "wrong",
+                f"Respuesta correcta: {question['answer']}."
             )
 
-        st.caption(question["explanation"])
-
-    if st.button("🔄 Nuevo intento"):
-        st.session_state.quiz = create_quiz()
-        st.session_state.submitted = False
-        st.session_state.score = 0
-
-        for index in range(1, 6):
-            st.session_state.pop(f"question_{index}", None)
+        if st.session_state.score >= 5:
+            st.session_state.finished = True
+        else:
+            st.session_state.question = create_question()
 
         st.rerun()
+
+if st.session_state.feedback:
+    status, message = st.session_state.feedback
+
+    if status == "correct":
+        st.success(f"💥 ¡Impacto! Respuesta correcta. {message}")
+    else:
+        st.error(f"❌ Fallaste el objetivo. {message}")
+
+if st.session_state.finished:
+    st.balloons()
+    st.success("🏆 ¡Victoria! Has conseguido 5 respuestas correctas.")
+    st.write("¡Excelente puntería, agente de Machine Learning!")
+
+    if st.button("🔄 Reiniciar partida"):
+        reset_game()
+        st.rerun()
+else:
+    if st.button("🔄 Reiniciar partida"):
+        reset_game()
+        st.rerun()
+
+st.divider()
+st.caption("Nota: esta versión usa botones y selección de alternativas, compatible con Streamlit sin un motor de videojuegos.")
